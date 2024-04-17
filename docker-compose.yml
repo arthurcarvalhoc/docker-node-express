@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:8.0-debian
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: ficr
+      MYSQL_USER: usersi
+      MYSQL_PASSWORD: usersi123
+      MYSQL_ROOT_PASSWORD: usersi123
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db:/var/lib/mysql
+
+  web:
+    working_dir: /home/app
+    image: node:20-bullseye-slim
+    command: npm test
+    ports:
+      - 80:3000
+    volumes:
+      - ./:/home/app
+
+
